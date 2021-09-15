@@ -39,13 +39,14 @@ button {
 }
 
 main {
-    border: 2px solid black;
+    border-radius: 12px;
+    background-color: #ffffff;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     justify-content: space-around;
     align-items: center;
-    height: 70vh;
     text-align: center;
 }
 
@@ -53,4 +54,31 @@ button {
     width: 80%;
 }
 
-.hidden {}
+.hidden {
+    display: none;
+}
+
+.imagePost img {
+    width: 100%;
+    border-radius: 12px 12px 0 0;
+}
+
+.image-info {
+    padding: 0 10px;
+}
+
+.imagePost h2 {
+    color: #FDA758;
+    font-family: 'Azeret Mono', monospace;
+}
+
+.imagePost p {
+    color: #573353;
+    font-family: 'Azeret Mono', monospace;
+}
+
+
+.image-description {
+    text-align: left;
+
+}
