@@ -1,0 +1,56 @@
+body {
+    margin: 0;
+    box-sizing: border-box;
+    background: #FFF3E9;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+
+
+.logo {
+    font-family: 'Major Mono Display', monospace;
+    text-transform: uppercase;
+    color: #573353;
+    margin-bottom: 0;
+}
+
+.subtitle {
+    text-align: center;
+    font-family: 'Azeret Mono', monospace;
+    color: #573353;
+    margin-top: 5px;
+    font-size: 12px;
+    font-weight: 200;
+}
+
+button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    background: #FDA758;
+    color: #573353;
+    font-size: 15px;
+    font-family: 'Azeret Mono', monospace;
+
+}
+
+main {
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
+    height: 70vh;
+    text-align: center;
+}
+
+button {
+    width: 80%;
+}
+
+.hidden {}
