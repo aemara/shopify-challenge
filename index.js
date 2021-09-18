@@ -1,14 +1,38 @@
 const todayImageBtn = document.querySelector('.today-image-btn');
-const urlEndpoint = 'https://api.nasa.gov/planetary/apod?api_key=6dU21ajUzWzyyaQCJGsG50rdySm4gQznBNal71t7&start_date=2021-01-01&end_date=2021-01-05'
+const daterangeImageBtn = document.querySelector('.daterange-image-btn');
+let dateInputSubmitBtn;
+const todayDate = new Date().toISOString().slice(0, 10)
+const urlEndpoint = 'https://api.nasa.gov/planetary/apod?api_key=6dU21ajUzWzyyaQCJGsG50rdySm4gQznBNal71t7'
 
 todayImageBtn.addEventListener('click', () => {
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach(button => {button.classList.toggle('hidden')});
     fetchImage();
 })
 
-const fetchImage = async () => {
-    const response = await fetch(`${urlEndpoint}`);
+daterangeImageBtn.addEventListener('click', () => {
+    const homeDiv = document.querySelector('.home');
+    const dateRangeHtml = `<form>
+                                <label for="start">Choose a start date:</label>
+                                <input type="date" id="start" name="start-date"
+                                    
+                                    max="${todayDate}">
+                                <button class="date-input-btn">See Photos</button>
+                            </form>`;
+    const dateRangeDiv = document.createElement('div');
+    dateRangeDiv.classList.add('date-input');
+    dateRangeDiv.innerHTML = dateRangeHtml;
+    homeDiv.append(dateRangeDiv);
+
+    dateInputSubmitBtn = document.querySelector('.date-input-btn');
+    dateInputSubmitBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        const startDate = event.target.baseURI.slice(-10);
+        fetchImage(startDate);
+    })
+})
+
+
+const fetchImage = async (startDate) => {
+    const response = await fetch(`${urlEndpoint}${startDate ? `&start_date=${startDate}`: ''}`);
     const data = await response.json();  
     renderImage(data);                   
 }
@@ -21,7 +45,7 @@ const renderImage = (data) => {
             const imageDescription = image.explanation;
             const imageDate = image.date;
             const imageUrl = image.hdurl;
-            const content = image.media_type === "video" ? `<iframe src="${image.url} height=""></iframe>`: `<img class="requested-image" src="${imageUrl}">`;
+            const content = image.media_type === "video" ? `<iframe src="${image.url} width = "" height=""></iframe>`: `<img class="requested-image" src="${imageUrl}">`;
 
             const imagePostHTML = `${content} 
                                     <div class="image-info">
