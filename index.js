@@ -1,7 +1,9 @@
 const todayImageBtn = document.querySelector('.today-image-btn');
 const daterangeImageBtn = document.querySelector('.daterange-image-btn');
+const dateInputForm = document.querySelector('.home form input');
 let dateInputSubmitBtn;
 const todayDate = new Date().toISOString().slice(0, 10)
+dateInputForm.setAttribute('max', todayDate);
 const urlEndpoint = 'https://api.nasa.gov/planetary/apod?api_key=6dU21ajUzWzyyaQCJGsG50rdySm4gQznBNal71t7'
 
 todayImageBtn.addEventListener('click', () => {
@@ -12,9 +14,7 @@ daterangeImageBtn.addEventListener('click', () => {
     const homeDiv = document.querySelector('.home');
     const dateRangeHtml = `<form>
                                 <label for="start">Choose a start date:</label>
-                                <input type="date" id="start" name="start-date"
-                                    
-                                    max="${todayDate}">
+                                <input type="date" id="start" name="start-date">
                                 <button class="date-input-btn">See Photos</button>
                             </form>`;
     const dateRangeDiv = document.createElement('div');
