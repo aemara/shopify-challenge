@@ -25,7 +25,7 @@ daterangeImageBtn.addEventListener('click', () => {
     dateInputSubmitBtn = document.querySelector('.date-input-btn');
     dateInputSubmitBtn.addEventListener('click', (event) => {
         event.preventDefault();
-        console.log(event.target)
+        console.log(event.target);
         const startDate = event.target.formAction.slice(-10);
         document.querySelector('.welcome-message').innerHTML = `${startDate}`;
         fetchImage(startDate);
