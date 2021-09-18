@@ -10,17 +10,7 @@ todayImageBtn.addEventListener('click', () => {
     fetchImage();
 })
 
-daterangeImageBtn.addEventListener('click', () => {
-    const homeDiv = document.querySelector('.home');
-    const dateRangeHtml = `<form>
-                                <label for="start">Choose a start date:</label>
-                                <input type="date" id="start" name="start-date">
-                                <button class="date-input-btn">See Photos</button>
-                            </form>`;
-    const dateRangeDiv = document.createElement('div');
-    dateRangeDiv.classList.add('date-input');
-    dateRangeDiv.innerHTML = dateRangeHtml;
-    homeDiv.append(dateRangeDiv);
+
 
     dateInputSubmitBtn = document.querySelector('.date-input-btn');
     dateInputSubmitBtn.addEventListener('click', (event) => {
@@ -29,7 +19,7 @@ daterangeImageBtn.addEventListener('click', () => {
         const startDate = event.target.form['0'].value;
         fetchImage(startDate);
     })
-})
+
 
 
 const fetchImage = async (startDate) => {
