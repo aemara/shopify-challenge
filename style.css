@@ -41,12 +41,12 @@ body {
     font-weight: 400;
 }
 
-form {
+.date-input-form {
     display: flex;
     flex-direction: column;
 }
 
-.date-input label {
+.date-input-form label {
     color: #573353;
     font-size: 12px;
     font-family: 'Azeret Mono', monospace;
