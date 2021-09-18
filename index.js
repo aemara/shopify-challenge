@@ -1,12 +1,11 @@
 const todayImageBtn = document.querySelector('.today-image-btn');
 const daterangeImageBtn = document.querySelector('.daterange-image-btn');
 const dateInputForm = document.querySelector('.home form input');
-
+const dateInputSubmitBtn = document.querySelector('.date-input-btn');
 const todayDate = new Date().toISOString().slice(0, 10)
 dateInputForm.setAttribute('max', todayDate);
 
 const urlEndpoint = 'https://api.nasa.gov/planetary/apod?api_key=6dU21ajUzWzyyaQCJGsG50rdySm4gQznBNal71t7'
-let dateInputSubmitBtn;
 let likeBtns;
 
 todayImageBtn.addEventListener('click', () => {
@@ -14,7 +13,7 @@ todayImageBtn.addEventListener('click', () => {
 })
 
 
-    dateInputSubmitBtn = document.querySelector('.date-input-btn');
+    
     dateInputSubmitBtn.addEventListener('click', (event) => {
         event.preventDefault();
         const startDate = event.target.form['0'].value;
@@ -24,9 +23,18 @@ todayImageBtn.addEventListener('click', () => {
 
 
 const fetchImage = async (startDate) => {
+    const imagePosts = document.querySelectorAll('.image-post');
+    if(imagePosts) {
+        imagePosts.forEach(post => {
+            post.remove();
+        })
+    }
+
+    const loadingComponent = addLoadingComponent();
     const response = await fetch(`${urlEndpoint}${startDate ? `&start_date=${startDate}`: ''}`);
     const data = await response.json();  
-    renderImage(data);                   
+    renderImage(data);
+    removeLoadingComponent(loadingComponent);
 }
 
 
@@ -93,4 +101,19 @@ const toggleLike = (likeBtn) => {
     } else {
         likeBtn.innerHTML = "Like";
     }
+}
+
+
+const addLoadingComponent = () => {
+    const loadingText = document.createElement('h2');
+    loadingText.classList.add('loading-component');
+    loadingText.classList.add('text-flicker-in-glow');
+    loadingText.innerHTML = "Loading...";
+    document.querySelector('.date-input-form').insertAdjacentElement('afterend', loadingText);
+
+    return loadingText;
+}
+
+const removeLoadingComponent = (loadingComponent) => {
+    loadingComponent.remove();
 }
