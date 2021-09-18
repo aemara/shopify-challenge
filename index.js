@@ -1,21 +1,22 @@
 const todayImageBtn = document.querySelector('.today-image-btn');
 const daterangeImageBtn = document.querySelector('.daterange-image-btn');
 const dateInputForm = document.querySelector('.home form input');
-let dateInputSubmitBtn;
+
 const todayDate = new Date().toISOString().slice(0, 10)
 dateInputForm.setAttribute('max', todayDate);
+
 const urlEndpoint = 'https://api.nasa.gov/planetary/apod?api_key=6dU21ajUzWzyyaQCJGsG50rdySm4gQznBNal71t7'
+let dateInputSubmitBtn;
+let likeBtns;
 
 todayImageBtn.addEventListener('click', () => {
     fetchImage();
 })
 
 
-
     dateInputSubmitBtn = document.querySelector('.date-input-btn');
     dateInputSubmitBtn.addEventListener('click', (event) => {
         event.preventDefault();
-        console.log(event.target);
         const startDate = event.target.form['0'].value;
         fetchImage(startDate);
     })
@@ -42,7 +43,7 @@ const renderImage = (data) => {
                                     <div class="image-info">
                                         <h2 class="image-title">${imageTitle}</h2>
                                         <p class="image-date">${imageDate}</p>
-                                        <button class="like-btn">Like</button>
+                                        <button class="like-btn like-${index}">Like</button>
                                         <p class="image-description">${imageDescription}</p>
                                     </div>`
                                     
@@ -75,5 +76,21 @@ const renderImage = (data) => {
         imagePost.innerHTML = imagePostHTML;
         imagePost.classList.add('image-post');
         mainDiv.append(imagePost);
+    }
+
+    likeBtns = document.querySelectorAll('.like-btn');
+    likeBtns.forEach(btn => {
+        btn.addEventListener('click', (event) => {
+            toggleLike(event.target);
+        })
+    });
+}
+
+const toggleLike = (likeBtn) => {
+    likeBtn.classList.toggle('liked-state');
+    if(likeBtn.innerHTML === "Like") {
+        likeBtn.innerHTML = "Liked!"
+    } else {
+        likeBtn.innerHTML = "Like";
     }
 }
