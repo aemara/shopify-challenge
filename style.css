@@ -44,6 +44,9 @@ body {
 .date-input-form {
     display: flex;
     flex-direction: column;
+    width: 50%;
+    margin: 0 auto 20px auto;
+    max-width: 370px;
 }
 
 .date-input-form label {
@@ -77,14 +80,12 @@ body {
     color: #29319F;
 }
 
-.today-image-btn:hover,
-.daterange-image-btn:hover {
+.today-image-btn:hover {
     text-decoration: underline;
     cursor: pointer;
 }
 
-.today-image-btn:active,
-.daterange-image-btn:active {
+.today-image-btn:active {
     text-decoration: underline;
 }
 
@@ -154,9 +155,35 @@ iframe {
     cursor: pointer;
 }
 
+.liked-state:hover {
+    color: #573353;
+}
+
 
 .image-description {
     text-align: left;
+}
+
+@media screen and (min-width: 900px) {
+    .image-post {
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+    .requested-image {
+        align-self: flex-start;
+        width: 35%;
+    }
+
+    .image-info {
+        width: 55%;
+        align-items: baseline;
+        align-self: baseline;
+    }
+
+    .image-info h2 {
+        margin-top: 0;
+    }
 }
 
 

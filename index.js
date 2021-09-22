@@ -2,7 +2,7 @@ const todayImageBtn = document.querySelector('.today-image-btn');
 const daterangeImageBtn = document.querySelector('.daterange-image-btn');
 const dateInputForm = document.querySelector('.home form input');
 const dateInputSubmitBtn = document.querySelector('.date-input-btn');
-const todayDate = new Date().toISOString().slice(0, 10)
+const todayDate = new Date().toISOString().slice(0, 10);
 dateInputForm.setAttribute('max', todayDate);
 
 const urlEndpoint = 'https://api.nasa.gov/planetary/apod?api_key=6dU21ajUzWzyyaQCJGsG50rdySm4gQznBNal71t7'
@@ -13,13 +13,12 @@ todayImageBtn.addEventListener('click', () => {
 })
 
 
-    
-    dateInputSubmitBtn.addEventListener('click', (event) => {
-        event.preventDefault();
-        const startDate = event.target.form['0'].value;
-        fetchImage(startDate);
-    })
-
+dateInputSubmitBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    const startDate = event.target.form['0'].value;
+    fetchImage(startDate);
+})    
+   
 
 
 const fetchImage = async (startDate) => {
@@ -45,13 +44,15 @@ const renderImage = (data) => {
             const imageDescription = image.explanation;
             const imageDate = image.date;
             const imageUrl = image.hdurl;
-            const content = image.media_type === "video" ? `<iframe src="${image.url} width = "" height=""></iframe>`: `<img class="requested-image" src="${imageUrl}">`;
+            const content = image.media_type === "video" ? `<iframe class="requested-image" src="${image.url} width = "" height=""></iframe>`: `<img class="requested-image" src="${imageUrl}">`;
 
             const imagePostHTML = `${content} 
                                     <div class="image-info">
                                         <h2 class="image-title">${imageTitle}</h2>
                                         <p class="image-date">${imageDate}</p>
-                                        <button class="like-btn like-${index}">Like</button>
+                                        ${localStorage.getItem(`like-${imageDate}`) ?
+                                        `<button class="like-btn like-${imageDate} liked-state">Liked!</button>` :
+                                        `<button class="like-btn like-${imageDate}">Like</button>`}
                                         <p class="image-description">${imageDescription}</p>
                                     </div>`
                                     
@@ -68,13 +69,16 @@ const renderImage = (data) => {
         const imageDescription = data.explanation;
         const imageDate = data.date;
         const imageUrl = data.hdurl;
-        const content = data.media_type === "video" ? `<iframe src="${data.url} height=""></iframe>`: `<img class="requested-image" src="${imageUrl}">`;
+        const content = data.media_type === "video" ? `<iframe class="requested-image" src="${data.url} height=""></iframe>`: `<img class="requested-image" src="${imageUrl}">`;
 
         const imagePostHTML = `${content} 
                                 <div class="image-info">
                                     <h2 class="image-title">${imageTitle}</h2>
                                     <p class="image-date">${imageDate}</p>
-                                    <button class="like-btn">Like</button>
+                                    ${localStorage.getItem(`like-${imageDate}`) ?
+                                    `<button class="like-btn like-${imageDate} liked-state">Liked!</button>` :
+                                    `<button class="like-btn like-${imageDate}">Like</button>`}
+                                    
                                     <p class="image-description">${imageDescription}</p>
                                 </div>`
                                 
@@ -100,6 +104,12 @@ const toggleLike = (likeBtn) => {
         likeBtn.innerHTML = "Liked!"
     } else {
         likeBtn.innerHTML = "Like";
+    }
+
+    if(localStorage.getItem(likeBtn.classList[1])) {
+        localStorage.removeItem(likeBtn.classList[1]);
+    } else {
+        localStorage.setItem(likeBtn.classList[1],'like');
     }
 }
 
